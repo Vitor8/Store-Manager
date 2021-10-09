@@ -8,6 +8,7 @@ const {
 
 const {
   isSalesQuantityValid,
+  isAvailableOnInventory,
 } = require('./salesValidations');
 
 const {
@@ -33,11 +34,12 @@ app.use(bodyParser.json());
 
 // npm test products.test.js
 
-// http POST :3000/products name='Produto do Brunão' quantity:=100
-// http POST :3000/products name='abcd' quantity:=100
+// http POST :3000/products name='Produto donão' quantity:=100
+// http POST :3000/products name='abcaaa' quantity:=100
 // http POST :3000/products name='Produto do Batista' quantity:=-2
 // http POST :3000/products name='Produto do Batista' quantity:=0
 // http POST :3000/products name='Produto do Batista' quantity:=50
+// http POST :3000/products name='Nintendo a' quantity:=100
 app.post('/products', isNameValid, isQuantityValid, createProductController);
 
 // http GET :3000/products/61602be6d00a3821f1893cf1
@@ -53,7 +55,7 @@ app.delete('/products/:id', deleteProductController);
 app.get('/products', getAllProductsController);
 
 // npm test sales.test.js
-app.post('/sales', isSalesQuantityValid, createSalesController);
+app.post('/sales', isSalesQuantityValid, isAvailableOnInventory, createSalesController);
 
 // http GET :3000/sales
 app.get('/sales', getSalesController);

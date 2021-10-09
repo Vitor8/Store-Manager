@@ -3,7 +3,11 @@ const {
 } = require('./productsService');
 
 const createSalesService = async (sales) => {
-  const { id } = await createSalesModel(sales);
+  const isQuantityCorrect = await createSalesModel(sales); 
+  
+  if (!isQuantityCorrect) return false;
+
+  const { id } = isQuantityCorrect;
  
   return {
     id,

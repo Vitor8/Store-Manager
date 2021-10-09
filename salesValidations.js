@@ -1,6 +1,25 @@
-// - Será validado que não é possível cadastrar vendas com quantidade menor que zero
-// - Será validado que não é possível cadastrar vendas com quantidade igual a zero
-// - Será validado que não é possível cadastrar vendas com uma string no campo quantidade
+const {
+  getProductByIdModel,
+} = require('./models/productsModel');
+
+const isAvailableOnInventory = (req, res, next) => {
+  const sales = req.body; // sales deve ser um array de objetos
+  let ok = true;
+  sales.forEach(async (sale, index) => {
+    const { productId } = sale;
+    const product = await getProductByIdModel(productId);
+    if (product.quantity < sale.quantity) {
+      ok = false;
+      return res.status(404).json({
+        err: {
+          code: 'stock_problem',
+          message: 'Such amount is not permitted to sell',
+        },
+      });
+    }
+    if (index === sales.length - 1 && ok) next();
+  });
+};
 
 const isSalesQuantityValid = (req, res, next) => {
   const sales = req.body; // sales deve ser um array de objetos
@@ -21,4 +40,4 @@ const isSalesQuantityValid = (req, res, next) => {
   next();
 };
 
-module.exports = { isSalesQuantityValid };
+module.exports = { isSalesQuantityValid, isAvailableOnInventory };

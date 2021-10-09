@@ -6,16 +6,20 @@ const {
   updateProductModel,
 } = require('./productsModel');
 
-const updateQuatityProductsAfterSale = async (sales) => sales.forEach(async (sale) => {
+const updateQuatityProductsAfterSale = async (sales) => { 
+  sales.forEach(async (sale) => {
     const { productId } = sale;
     const product = await getProductByIdModel(productId);
+
     const updatedProduct = {
       id: productId,
       name: product.name,
       quantity: product.quantity - sale.quantity,
     };
-    await updateProductModel(updatedProduct);  
+
+    await updateProductModel(updatedProduct);
   });
+};
 
 const updateQuantityProductAfterDeletedSale = async (saleToDelete) => {
   const deletedSale = saleToDelete.itensSold;
@@ -34,10 +38,10 @@ const updateQuantityProductAfterDeletedSale = async (saleToDelete) => {
 const createSalesModel = async (sales) => {
   const salesCollection = await mongoConnection.getConnection()
     .then((db) => db.collection('sales'));
+  
+  await updateQuatityProductsAfterSale(sales);
 
   const { insertedId: id } = await salesCollection.insertOne({ itensSold: sales });
-
-  await updateQuatityProductsAfterSale(sales);
 
   return {
     id,
