@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 // http POST :3000/products name='abcd' quantity:=100
 // http POST :3000/products name='Produto do Batista' quantity:=-2
 // http POST :3000/products name='Produto do Batista' quantity:=0
-// http POST :3000/products name='Produto do Batista' quantity:=100
+// http POST :3000/products name='Produto do Batista' quantity:=50
 app.post('/products', isNameValid, isQuantityValid, createProductController);
 
 // http GET :3000/products/61602be6d00a3821f1893cf1
@@ -64,7 +64,7 @@ app.get('/sales/:id', getSaleByIdController);
 // http PUT :3000/sales/id
 app.put('/sales/:id', isSalesQuantityValid, updateSaleController);
 
-// http DELETE :3000/sales/id
+// http DELETE :3000/sales/616192a6123c56200bf103ba
 app.delete('/sales/:id', deleteSaleController);
 
 // não remova esse endpoint, e para o avaliador funcionar
