@@ -40,7 +40,7 @@ Atenção :warning: Não rode o comando npm audit fix! Ele atualiza várias depe
 
 ---
 
-### Todos os seus endpoints seguem o padrão REST
+### Todos os meus endpoints seguem o padrão REST
 
 - Uso os verbos HTTP adequados para cada operação.
 
