@@ -24,7 +24,7 @@ Na aplicação é possível que a pessoa usuária, independente de cadastramento
 
 1. Clone o repositório
 
-- `git clone https://github.com/tryber/sd-010-a-store-manager.git`.
+- `git clone git@github.com:Vitor8/Store-Manager.git`.
 - Entre na pasta do repositório que você acabou de clonar:
   - `cd sd-010-a-store-manager`
 
